@@ -23,4 +23,48 @@
     max-width: 540px;
     background-color: hsl(0, 0%, 90%);
     border-radius: 15px;
+    padding: 40px 30px 70px;
+}
+.todo-app h2 {
+    color: rgba(0, 0, 0, 0.847);
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.todo-app h2 img {
+    width: 40px;
+    margin-left: 10px;
+}
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: hsl(0, 0%, 85%);
+    border-radius: 30px;
+    padding-left: 15px;
+    margin-bottom: 20px;
+}
+#input-text {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    font-weight: 30px;
+}
+#add-btn {
+    border: none;
+    outline: none;
+    padding: 10px 30px;
+    background: hsl(0, 0%, 35%);
+    color: white;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 30px;
+}
+#add-btn:hover {
+    background: hsl(0, 0%, 40%);
+}
+#add-btn:active {
+    background: hsl(0, 0%, 50%);
 }
