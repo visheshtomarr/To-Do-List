@@ -21,7 +21,7 @@
 .todo-app {
     width: 100%;
     max-width: 540px;
-    background-color: hsl(0, 0%, 90%);
+    background-color: #ffffff;
     border-radius: 15px;
     padding: 40px 30px 70px;
 }
@@ -39,7 +39,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: hsl(0, 0%, 85%);
+    background: hsl(0, 0%, 90%);
     border-radius: 30px;
     padding-left: 15px;
     margin-bottom: 20px;
@@ -67,4 +67,31 @@
 }
 #add-btn:active {
     background: hsl(0, 0%, 50%);
+}
+#list-container li {
+    list-style: none;
+    font-size: 1.1em;
+    padding: 15px 8px 15px 50px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+}
+#list-container li::before {
+    content: '';
+    position: absolute;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    background-image: url(../Images/unchecked.png);
+    background-size: cover;
+    background-position: center;
+    top: 14px;
+    left: 8px;
+}
+#list-container li.checked {
+    color: hsl(0, 0%, 30%);
+    text-decoration: line-through;
+}
+#list-container li.checked::before {
+    background-image: url(../Images/checked.png);
 }
