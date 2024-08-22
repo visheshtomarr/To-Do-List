@@ -15,12 +15,12 @@ function addTask() {
 
         // Create span for "edit" button.
         let spanForEditButton = document.createElement('span') ;
-        spanForEditButton.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>` ;
+        spanForEditButton.innerHTML = `<i id="edit-btn" class="fa-regular fa-pen-to-square"></i>` ;
         li.appendChild(spanForEditButton) ;
         
         // Create span for "delete" button.
         let spanForDeleteButton = document.createElement('span') ;
-        spanForDeleteButton.innerHTML = `<i class="fa-regular fa-trash-can"></i>` ;
+        spanForDeleteButton.innerHTML = `<i id="delete-btn" class="fa-regular fa-trash-can"></i>` ;
         li.appendChild(spanForDeleteButton) ;
     }
     inputDisplay.value = '' ;
