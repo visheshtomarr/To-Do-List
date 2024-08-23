@@ -1,5 +1,5 @@
-// Create an array to store the tasks.
-let tasks = [] ;
+// Create an array to store the tasks, retrieving them from local storage if available.
+let tasks = JSON.parse(localStorage.getItem('Tasks')) || [] ;
 
 // Creating variables to access the input display and the list container.
 const inputDisplay = document.querySelector('#input-text') ;
@@ -12,6 +12,8 @@ function addTask() {
     }
     else {
         tasks.push({ text: inputDisplay.value, completed: false }) ;
+        // Update local storage.
+        updateLocalStorage() ;
         updateTaskList() ;
     }
     inputDisplay.value = '' ;
@@ -23,11 +25,11 @@ function updateTaskList() {
     listContainer.innerHTML = `` ;
 
     tasks.forEach((task,index) => {
-        let {text} = task ;
+        let {text, completed} = task ;
         const listItem = document.createElement(`li`) ;
 
         // Apply 'checked' class to the completed tasks.
-        if (task.completed) {
+        if (completed) {
             listItem.classList.add('checked') ;
         }
 
@@ -38,6 +40,11 @@ function updateTaskList() {
         ` ;
     listContainer.append(listItem);
     }) ;
+}
+
+// Function to update the local storage.
+function updateLocalStorage() {
+    localStorage.setItem('Tasks', JSON.stringify(tasks)) ;
 }
 
 // Event listener for the list container to handle edit and delete.
@@ -51,7 +58,7 @@ listContainer.addEventListener('click', function(e) {
         }
         else {
             editTask(index) ;
-        } 
+        }
     }
     else if (e.target.closest('.delete-btn')) {
         const index = e.target.closest('.delete-btn').getAttribute('data-index') ;
@@ -71,6 +78,8 @@ function editTask(index) {
     const newTaskText = prompt('Edit your task:', tasks[index].text) ;
     if(newTaskText !== null && newTaskText.trim() !== '') {
         tasks[index].text = newTaskText.trim() ;
+        // Everytime tasks are edited, we update the local storage.
+        updateLocalStorage() ;
         updateTaskList() ;
     }
 } 
@@ -80,6 +89,8 @@ function deleteTask(index) {
     // Remove the task at a specified index.
     tasks.splice(index, 1) ;
     alert(`Task ${+index + 1} deleted!`) ;
+    // Everytime tasks are deleted, we update the local storage.
+    updateLocalStorage() ;
     updateTaskList() ;
 }
 
@@ -87,6 +98,11 @@ function deleteTask(index) {
 function toggleTaskCompletion(index) {
     // Toggle the completed status.
     tasks[index].completed = !tasks[index].completed ;
-    alert(`Task ${index + 1} completed!`) ;
+    alert(`Task ${index + 1} ${tasks[index].completed ? 'completed!' : 'marked as incomplete!'}`) ;
+    // Everytime tasks are toggled to be completed, we update the local storage.
+    updateLocalStorage() ;
     updateTaskList() ;
 }
+
+// Initial display of tasks on page load.
+updateTaskList() ;
