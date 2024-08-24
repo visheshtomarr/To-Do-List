@@ -23,6 +23,13 @@ function addTask() {
     inputDisplay.value = '' ;
 }
 
+// Add event listener for the "Enter" key press.
+inputDisplay.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        addTask() ;
+    }
+}) ;
+
 // Function to update the task list display.
 function updateTaskList() {
     // Clear the list
