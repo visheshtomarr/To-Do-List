@@ -5,6 +5,9 @@ let tasks = JSON.parse(localStorage.getItem('Tasks')) || [] ;
 const inputDisplay = document.querySelector('#input-text') ;
 const listContainer = document.querySelector('#list-container') ;
 
+// Access the progress bar element
+const progressBar = document.querySelector('#progress') ;
+
 // Function to add the tasks to our to-do list.
 function addTask() {
     if (inputDisplay.value === '') {
@@ -15,6 +18,7 @@ function addTask() {
         // Update local storage.
         updateLocalStorage() ;
         updateTaskList() ;
+        updateStats() ;
     }
     inputDisplay.value = '' ;
 }
@@ -81,6 +85,7 @@ function editTask(index) {
         // Everytime tasks are edited, we update the local storage.
         updateLocalStorage() ;
         updateTaskList() ;
+        updateStats() ;
     }
 } 
 
@@ -92,6 +97,7 @@ function deleteTask(index) {
     // Everytime tasks are deleted, we update the local storage.
     updateLocalStorage() ;
     updateTaskList() ;
+    updateStats() ;
 }
 
 // Function to toggle the completion of a task.
@@ -102,7 +108,31 @@ function toggleTaskCompletion(index) {
     // Everytime tasks are toggled to be completed, we update the local storage.
     updateLocalStorage() ;
     updateTaskList() ;
+    updateStats() ;
+}
+
+// Function to update the stats.
+function updateStats() {
+    let completedTasks = tasks.filter((task) => task.completed).length ;
+    let totalTasks = tasks.length ;
+    let progress = totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100 ;
+    
+    // Adjusts the width of the progress bar according to 'progress' percentage.
+    progressBar.style.width = `${progress}%` ;
+
+    // To display no. of tasks completed as compared to the total tasks.
+    document.getElementById('numbers').innerText = `${completedTasks} / ${totalTasks}` ;
+
+    // If all tasks are completed, we will change the 'details' content.
+    const detailsContent = document.querySelector('#detail-msg') ;
+    if (tasks.length && completedTasks === totalTasks) {
+        detailsContent.innerText = 'All tasks completed!' ;
+    }
+    else {
+        detailsContent.innerText = 'Keep it up!' ;
+    }
 }
 
 // Initial display of tasks on page load.
 updateTaskList() ;
+updateStats() ;
