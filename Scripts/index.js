@@ -126,11 +126,55 @@ function updateStats() {
     // If all tasks are completed, we will change the 'details' content.
     const detailsContent = document.querySelector('#detail-msg') ;
     if (tasks.length && completedTasks === totalTasks) {
-        detailsContent.innerText = 'All tasks completed!' ;
+        detailsContent.innerText = 'All tasks are completed!' ;
+        blastConfetti() ;
     }
     else {
         detailsContent.innerText = 'Keep it up!' ;
     }
+}
+
+// Function to display confetti.
+function blastConfetti() {
+  const count = 200,
+    defaults = {
+      origin: { y: 0.7 },
+    };
+
+  function fire(particleRatio, opts) {
+    confetti(
+      Object.assign({}, defaults, opts, {
+        particleCount: Math.floor(count * particleRatio),
+      })
+    );
+  }
+
+  fire(0.25, {
+    spread: 26,
+    startVelocity: 55,
+  });
+
+  fire(0.2, {
+    spread: 60,
+  });
+
+  fire(0.35, {
+    spread: 100,
+    decay: 0.91,
+    scalar: 0.8,
+  });
+
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 25,
+    decay: 0.92,
+    scalar: 1.2,
+  });
+
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 45,
+  });
 }
 
 // Initial display of tasks on page load.
